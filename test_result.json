@@ -1,0 +1,78 @@
+[
+    {
+        "name": "유효하지 않은 계정으로 로그인 시도하기 -- @1.1 ",
+        "status": "passed"
+    },
+    {
+        "name": "유효하지 않은 계정으로 로그인 시도하기 -- @1.2 ",
+        "status": "passed"
+    },
+    {
+        "name": "메인 페이지 접속 확인하기",
+        "status": "passed"
+    },
+    {
+        "name": "프로필 영역 확인하기",
+        "status": "passed"
+    },
+    {
+        "name": "로그인 영역 UI 확인하기",
+        "status": "passed"
+    },
+    {
+        "name": "로그인 페이지 이동하기",
+        "status": "passed"
+    },
+    {
+        "name": "네이버 카페 페이지로 이동하기",
+        "status": "passed"
+    },
+    {
+        "name": "네이버 블로그 페이지로 이동하기",
+        "status": "passed"
+    },
+    {
+        "name": "네이버 쇼핑 페이지로 이동하기",
+        "status": "passed"
+    },
+    {
+        "name": "네이버 뉴스 페이지로 이동하기",
+        "status": "passed"
+    },
+    {
+        "name": "네이버 증권 페이지로 이동하기",
+        "status": "passed"
+    },
+    {
+        "name": "네이버 부동산 페이지로 이동하기",
+        "status": "passed"
+    },
+    {
+        "name": "네이버 지도 페이지로 이동하기",
+        "status": "passed"
+    },
+    {
+        "name": "네이버 웹툰 페이지로 이동하기",
+        "status": "passed"
+    },
+    {
+        "name": "네이버 날씨 페이지로 이동하기",
+        "status": "passed"
+    },
+    {
+        "name": "날씨 페이지 홈 탭 확인하기",
+        "status": "passed"
+    },
+    {
+        "name": "날씨 페이지 예보비교 탭 확인하기",
+        "status": "passed"
+    },
+    {
+        "name": "날씨 페이지 지도 탭 확인하기",
+        "status": "passed"
+    },
+    {
+        "name": "날씨 페이지 영상 탭 확인하기",
+        "status": "passed"
+    }
+]
