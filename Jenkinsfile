@@ -84,7 +84,6 @@ pipeline {
             steps {
                 script {
                     def behaveFeatureFile=params.BEHAVE_FEATURE
-                    // behave -f allure_behave.formatter:AllureFormatter -o \$(pwd)/reports/allureReports --junit ${behaveFeatureFile} -f pretty
                     sh """
                         python3 -m venv venv
                         . venv/bin/activate
@@ -92,7 +91,7 @@ pipeline {
                         pip install -r requirements.txt
                         rm -f \$(pwd)/reports/*.xml
                         rm -f \$(pwd)/reports/*.png
-                        behave -f allure_behave.formatter:AllureFormatter -o reports/ features
+                        behave -f allure_behave.formatter:AllureFormatter -o \$(pwd)/reports/allureReports --junit ${behaveFeatureFile} -f pretty
                     """
                     def seleniumChromeIP = sh(script: 'sudo docker run -d -P --platform linux/amd64 --shm-size=2g selenium/standalone-chrome')
                     echo "seleniumChromeIP = $seleniumChromeIP"
