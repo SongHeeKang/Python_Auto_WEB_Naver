@@ -84,7 +84,7 @@ pipeline {
             steps {
                 script {
                     def behaveFeatureFile=params.BEHAVE_FEATURE
-                    def SELENIUM_JAR_PATH = /selenium-jar/selenium-server-4.18.1.jar
+                    // def SELENIUM_JAR_PATH = /selenium-jar/selenium-server-4.18.1.jar
                     sh """
                         python3 -m venv venv
                         . venv/bin/activate
