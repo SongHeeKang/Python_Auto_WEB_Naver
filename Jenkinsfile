@@ -92,7 +92,7 @@ pipeline {
                         pip install -r requirements.txt
                         rm -f \$(pwd)/reports/*.xml
                         rm -f \$(pwd)/reports/*.png
-                        python3 allure-generate.sh
+                        behave -f allure_behave.formatter:AllureFormatter -o reports/ features
                     """
                     def seleniumChromeIP = sh(script: 'sudo docker run -d -P --platform linux/amd64 --shm-size=2g selenium/standalone-chrome')
                     echo "seleniumChromeIP = $seleniumChromeIP"
