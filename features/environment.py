@@ -29,6 +29,9 @@ def after_scenario(context, scenario):
     for scenario_info in scenario_test_results:
         if scenario_info["name"] == scenario.name:
             scenario_info["status"] = scenario.status.name
+    # add
+    context.driver.quit()
+    # end
     helper.create_json(scenario_test_results, "test_result.json")
 
 
