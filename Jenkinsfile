@@ -87,14 +87,14 @@ pipeline {
                     sh """
                         python3 -m venv venv
                         . venv/bin/activate
-                        sudo docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' selenium-grid
                         pip install -r requirements.txt
                         rm -f \$(pwd)/reports/*.xml
                         rm -f \$(pwd)/reports/*.png
+                        sudo docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' keen_moore
                         behave -f allure_behave.formatter:AllureFormatter -o \$(pwd)/reports --junit ${behaveFeatureFile} -f pretty
                     """
-                    def seleniumChromeIP = sh(script: 'sudo docker run -d -P --platform linux/amd64 --shm-size=2g selenium/standalone-chrome')
-                    echo "seleniumChromeIP = $seleniumChromeIP"
+                    // def seleniumChromeIP = sh(script: 'sudo docker run -d -P --platform linux/amd64 --shm-size=2g selenium/standalone-chrome')
+                    // echo "seleniumChromeIP = $seleniumChromeIP"
                 }
             }
         }
@@ -110,13 +110,13 @@ pipeline {
 
 
 
-// 함수 정의
-def cleanSeleniumGrid() {
-    sh """
-        # clean Selenium Grid Docker
-        sudo docker rm -f ${env.CONTAINER_ID}
-    """
-}
+// // 함수 정의
+// def cleanSeleniumGrid() {
+//     sh """
+//         # clean Selenium Grid Docker
+//         sudo docker rm -f ${env.CONTAINER_ID}
+//     """
+// }
 
 
 def publishAllureResults() {
