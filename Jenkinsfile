@@ -90,7 +90,7 @@ pipeline {
                         pip install -r requirements.txt
                         rm -f \$(pwd)/reports/*.xml
                         rm -f \$(pwd)/reports/*.png
-                        sudo docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' keen_moore
+                        sudo docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' selenium-grid
                         behave -f allure_behave.formatter:AllureFormatter -o \$(pwd)/reports --junit ${behaveFeatureFile} -f pretty
                     """
                     def seleniumChromeIP = sh(script: 'sudo docker run -d -P --shm-size=2g selenium/standalone-chrome')
