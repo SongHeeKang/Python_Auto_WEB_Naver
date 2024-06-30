@@ -36,7 +36,7 @@ pipeline {
                         pwd
                         """
                         // Selenium Grid 컨테이너 실행 및 무작위 포트 설정
-                        def container_id = sh(script: 'sudo docker run -d -P --shm-size="2g" selenium/standalone-chrome', returnStdout: true).trim()
+                        def container_id = sh(script: 'sudo docker run -d -P --shm-size="2g" selenium/standalone-chrome:latest', returnStdout: true).trim()
                         echo "container_id = $container_id"
                         // 컨테이너에서 할당된 포트 확인
                         def allocated_port = sh(script: 'sudo docker port ' + container_id + ' 4444 | awk -F \':\' \'{print $2}\' | awk \'{print $1}\'', returnStdout: true).trim()
