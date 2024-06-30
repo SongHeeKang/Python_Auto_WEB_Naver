@@ -42,12 +42,9 @@ def local_run_browser(context):
 def remote_run_browser(context):
     options = Options()
     options.set_capability("browserName", "chrome")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--headless")
     options.add_argument("--start-maximized")
     options.add_argument("--disable-gpu")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--disable-popup-blocking")
+    
     try:
         context.driver = webdriver.Remote(command_executor=config.SELENIUM_GRID_URL, options=options)
     except Exception as error:
