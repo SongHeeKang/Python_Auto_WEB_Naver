@@ -10,12 +10,6 @@ from selenium.common.exceptions import *
 from allure_commons.types import AttachmentType
 from traceback import print_stack
 
-# add
-from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
-from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.action_chains import ActionChains
-# end
 
 waitTime = config.WAIT_TIME
 BASE_DIR = os.getcwd()
@@ -207,92 +201,6 @@ class BasePage:
         except ElementNotInteractableException as e:
             self.write_log(locator, f" ElementNotInteractableException 발생 : 지정한 XPATH '{locator}'에 해당하는 엘리먼트는 현재 상호작용할 수 없는 상태입니다. 상세 정보 - {e}")
             assert False
-
-    # add
-    def web_driver_wait_presence(self, by_selector, locator):
-        try:
-            WebDriverWait(self.driver, waitTime).until(
-                EC.presence_of_element_located((by_selector, locator))
-            )
-        except TimeoutException:
-            self.write_log(locator, "The element was not found in time")
-
-    def web_driver_wait_clickable(self, by_selector, locator):
-        try:
-            WebDriverWait(self.driver, waitTime).until(
-                EC.element_to_be_clickable((by_selector, locator))
-            )
-        except TimeoutException:
-            self.write_log(locator, "The element was not found in time")
-            
-    def actionChains(self):
-        return ActionChains(self.driver)
-    
-    def send_keys_action(self, key):
-        self.driver.implicitly_wait(waitTime)
-        actions = self.actionChains()
-        key_attr = getattr(Keys, key)
-        actions.send_keys(key_attr)
-        actions.perform()
-
-    def move_to_element(self, by_selector, locator):
-        self.web_driver_wait_presence(by_selector, locator)
-        actions = self.actionChains()
-        element = self.driver.find_element(by=by_selector, value=locator)
-        actions.move_to_element(element).perform()
-
-    def write_log(self, locator, text):
-        '''
-        로그와 스크린샷을 기록해준다.
-        :param locator:
-        :param text: 기록할 메세지
-        :return:
-        '''
-        print_stack()
-        logger.info(text + locator)
-        self.take_screenshotoallure(locator)
-        self.save_screen_shot_tofile()
-
-    def get_element_attribute(self, by_selector, locator, value):
-        '''
-        locator 의 속성값을 가져온다.
-        :param locator:
-        :param value: 얻어올 value
-        :return: attribute 값
-        '''
-        text = ''
-        self.web_driver_wait_presence(by_selector, locator)
-        try:
-            element = self.driver.find_element(by=by_selector, value=locator)
-            text = element.get_attribute(value)
-            # self.highlight(element, 0, "red", 3)
-            return text
-
-        except NoSuchElementException:
-            self.write_log(locator, "Unable to sent key with locator value " + text)
-            assert False
-
-    def excute_script_window_open(self):
-        self.driver.execute_script('window.open("%s");' % config.FIRESCOUT_PAGE_URL)
-
-    def switch_to_window(self, handle_number):
-        '''
-        handle_number 로 스위치 한다.
-        :param handle_number:
-        :return:
-        '''
-        self.driver.switch_to.window(self.driver.window_handles[handle_number])
-
-    def refresh_page(self):
-        self.driver.refresh()
-        self.driver.implicitly_wait(5)
-
-    def clear_input_field(self, by_selector, locator):
-        self.web_driver_wait_presence(by_selector, locator)
-        element = self.driver.find_element(by=by_selector, value=locator)
-        element.clear()
-
-    # end
 
     @staticmethod
     def assert_text(expected, result):

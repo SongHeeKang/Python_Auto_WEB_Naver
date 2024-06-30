@@ -54,7 +54,7 @@ pipeline {
             steps{
                 script {
                 sh """
-                        rm -rf reports
+                        rm -rf reports/allureReports
                     """
                 }
             }
@@ -91,7 +91,7 @@ pipeline {
                         rm -f \$(pwd)/reports/*.xml
                         rm -f \$(pwd)/reports/*.png
                         sudo docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' selenium-grid
-                        behave -f allure_behave.formatter:AllureFormatter -o \$(pwd)/reports --junit ${behaveFeatureFile} -f pretty
+                        behave -f allure_behave.formatter:AllureFormatter -o \$(pwd)/reports/allureReports --junit ${behaveFeatureFile} -f pretty
                     """
                 }
             }
@@ -118,5 +118,5 @@ def cleanSeleniumGrid() {
 
 
 def publishAllureResults() {
-    allure includeProperties: false, jdk: '', results: [[path: 'reports']]
+    allure includeProperties: false, jdk: '', results: [[path: 'reports/allureReports']]
 }
