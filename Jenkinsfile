@@ -10,7 +10,7 @@ pipeline {
         string(name: 'PASS_SCREENSHOT', defaultValue: 'True', description: 'Enter a value for PASS_SCREENSHOT')
         string(name: 'REMOTE_RUN', defaultValue: 'REMOTE_RUN=True', description: 'Enter a value for REMOTE_RUN')
         string(name: 'SELENIUM_GRID_URL', defaultValue: 'http://127.0.0.1', description: 'Enter a value for SELENIUM_GRID_URL')
-        string(name: 'SELENIUM_WAIT_TIME', defaultValue: '10', description: 'Enter a value for SELENIUM_WAIT_TIME')
+        string(name: 'SELENIUM_WAIT_TIME', defaultValue: '60', description: 'Enter a value for SELENIUM_WAIT_TIME')
     }
     environment {
         BUILD_START = "${new Date().getTime()}"
