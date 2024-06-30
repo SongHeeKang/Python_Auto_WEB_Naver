@@ -28,27 +28,27 @@ pipeline {
 
 
     stages {
-        // stage('Run Selenium Grid Docker') {
-        //         steps {
-        //             script {
-        //                 sh """
-        //                 id
-        //                 pwd
-        //                 """
-        //                 // Selenium Grid 컨테이너 실행 및 무작위 포트 설정
-        //                 def container_id = sh(script: 'sudo docker run -d -P --shm-size="2g" selenium/standalone-chrome', returnStdout: true).trim()
-        //                 echo "container_id = $container_id"
-        //                 // 컨테이너에서 할당된 포트 확인
-        //                 def allocated_port = sh(script: 'sudo docker port ' + container_id + ' 4444 | awk -F \':\' \'{print $2}\' | awk \'{print $1}\'', returnStdout: true).trim()
-        //                 // 할당된 포트 출력
-        //                 echo "할당된 포트: $allocated_port"
-        //                 // 환경 변수로 컨테이너 ID 저장
-        //                 env.CONTAINER_ID = container_id
-        //                 env.CONTAINER_PORT= allocated_port
+        stage('Run Selenium Grid Docker') {
+                steps {
+                    script {
+                        sh """
+                        id
+                        pwd
+                        """
+                        // Selenium Grid 컨테이너 실행 및 무작위 포트 설정
+                        def container_id = sh(script: 'sudo docker run -d -P --shm-size="2g" selenium/standalone-chrome', returnStdout: true).trim()
+                        echo "container_id = $container_id"
+                        // 컨테이너에서 할당된 포트 확인
+                        def allocated_port = sh(script: 'sudo docker port ' + container_id + ' 4444 | awk -F \':\' \'{print $2}\' | awk \'{print $1}\'', returnStdout: true).trim()
+                        // 할당된 포트 출력
+                        echo "할당된 포트: $allocated_port"
+                        // 환경 변수로 컨테이너 ID 저장
+                        env.CONTAINER_ID = container_id
+                        env.CONTAINER_PORT= allocated_port
 
-        //             }
-        //         }
-        //     }
+                    }
+                }
+            }
 
         stage('Delete reports'){
             steps{
@@ -93,8 +93,8 @@ pipeline {
                         sudo docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' keen_moore
                         behave -f allure_behave.formatter:AllureFormatter -o \$(pwd)/reports --junit ${behaveFeatureFile} -f pretty
                     """
-                    // def seleniumChromeIP = sh(script: 'sudo docker run -d -P --platform linux/amd64 --shm-size=2g selenium/standalone-chrome')
-                    // echo "seleniumChromeIP = $seleniumChromeIP"
+                    def seleniumChromeIP = sh(script: 'sudo docker run -d -P --shm-size=2g selenium/standalone-chrome')
+                    echo "seleniumChromeIP = $seleniumChromeIP"
                 }
             }
         }
@@ -102,7 +102,7 @@ pipeline {
     // Allure Report 생성
     post {
         always {
-            // cleanSeleniumGrid()
+            cleanSeleniumGrid()
             publishAllureResults()
         }
     }
@@ -110,13 +110,13 @@ pipeline {
 
 
 
-// // 함수 정의
-// def cleanSeleniumGrid() {
-//     sh """
-//         # clean Selenium Grid Docker
-//         sudo docker rm -f ${env.CONTAINER_ID}
-//     """
-// }
+// 함수 정의
+def cleanSeleniumGrid() {
+    sh """
+        # clean Selenium Grid Docker
+        sudo docker rm -f ${env.CONTAINER_ID}
+    """
+}
 
 
 def publishAllureResults() {
