@@ -54,7 +54,7 @@ pipeline {
             steps{
                 script {
                 sh """
-                        rm -rf reports/allureReports
+                        rm -rf reports
                     """
                 }
             }
@@ -91,7 +91,7 @@ pipeline {
                         pip install -r requirements.txt
                         rm -f \$(pwd)/reports/*.xml
                         rm -f \$(pwd)/reports/*.png
-                        behave -f allure_behave.formatter:AllureFormatter -o \$(pwd)/reports/allureReports --junit ${behaveFeatureFile} -f pretty
+                        behave -f allure_behave.formatter:AllureFormatter -o \$(pwd)/reports --junit ${behaveFeatureFile} -f pretty
                     """
                     def seleniumChromeIP = sh(script: 'sudo docker run -d -P --platform linux/amd64 --shm-size=2g selenium/standalone-chrome')
                     echo "seleniumChromeIP = $seleniumChromeIP"
@@ -120,5 +120,5 @@ pipeline {
 
 
 def publishAllureResults() {
-    allure includeProperties: false, jdk: '', results: [[path: 'reports/allureReports']]
+    allure includeProperties: false, jdk: '', results: [[path: 'reports']]
 }
