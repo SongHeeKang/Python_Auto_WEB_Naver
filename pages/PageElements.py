@@ -42,9 +42,7 @@ error_message = '//div[@class="error_message"]'
 # WeatherPage Elements
 weather_title = '네이버 날씨'
 weather_logo = '//h1[@class="logo_area"]'
-# weather_home_tap = '//a[contains(@href, "/today/") and contains(text(), "홈")]'
-weather_home_tap = '//a[contains(@href, "/today/") and contains(text())]'
-
+weather_home_tap = '//a[contains(@href, "/today/") and contains(text(), "홈")]'
 weather_compare_tap = '//a[contains(@href, "/compare/") and contains(text(), "예보비교")]'
 weather_air_tap = '//a[contains(@href, "/air/") and text() = "미세먼지"]'
 weather_map_tap = '//a[contains(@href, "/map/") and contains(text(), "지도")]'
